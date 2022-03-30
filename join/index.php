@@ -31,7 +31,7 @@ if($form['name'] === '') {
             <dl>
                 <dt>ニックネーム<span class="required">必須</span></dt>
                 <dd>
-                    <input type="text" name="name" size="35" maxlength="255" value=""/>
+                    <input type="text" name="name" size="35" maxlength="255" value="<?php echo htmlspecialchars($form['name'], ENT_QUOTES); ?>"/>
                     <?php if (isset($error['name']) && $error['name'] === 'blank'): ?>
                         <p class="error">* ニックネームを入力してください</p>
                     <?php endif; ?>
