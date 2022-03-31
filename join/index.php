@@ -1,7 +1,8 @@
 <?php
 $form = [
     'name' => '',
-    'email' => ''
+    'email' => '',
+    'password' => ''
     
 ];
 $error = [];
@@ -21,6 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     if($form['email'] === '') {
         $error['email'] = 'blank';
+    }
+
+    $form['password'] = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    if($form['password'] === '') {
+        $error['password'] = 'blank';
     }
 }
 ?>
@@ -64,8 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="error">* 指定されたメールアドレスはすでに登録されています</p>
                 <dt>パスワード<span class="required">必須</span></dt>
                 <dd>
-                    <input type="password" name="password" size="10" maxlength="20" value=""/>
-                    <p class="error">* パスワードを入力してください</p>
+                    <input type="password" name="password" size="10" maxlength="20" value="<?php echo h($form['password']) ?>"/>
+                    <?php if(isset($error['password']) && $error['password'] === 'blank'): ?>
+                        <p class="error">* パスワードを入力してください</p>
+                    <?php endif; ?>
                     <p class="error">* パスワードは4文字以上で入力してください</p>
                 </dd>
                 <dt>写真など</dt>
