@@ -52,6 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // エラーがなかった場合
     if(empty($error)) {
         $_SESSION['form'] = $form;
+
+        // 画像のアップロード
+        $filename = date('YmdHis') . '_' .  $image['name'];
+        move_uploaded_file($image['tmp_name'], '../member_picture/' . $filename);
+
         header('Location: check.php');
         exit();
     }
