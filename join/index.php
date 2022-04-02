@@ -12,7 +12,7 @@ function h($value) {
     return htmlspecialchars($value, ENT_QUOTES);
 }
 
-// フォームの内容をチェック
+// フォームのテキストの内容をチェック
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $form['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
     if($form['name'] === '') {
@@ -30,7 +30,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if (strlen($form['password']) < 4) {
         $error['password'] = 'length';
     }
+
+    // フォームの画像送信の内容をチェック
+    $image = $_FILES['image'];
+    
+    // 「画像が空ではない」かつ「エラーが起こっていない」場合
+    if($image['name'] !== '' && $image['error'] === 0) {
+    
+        // 画像の形式を判断するための関数
+        $type = mime_content_type($image['tmp_name']);
+    
+        // 画像形式がpngでもjpgでもない
+        if($type !== 'image/png' && $type !== 'image/jpeg') {
+            $error['image'] = 'type';
+    
+        }
+    
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <dt>写真など</dt>
                 <dd>
                     <input type="file" name="image" size="35" value=""/>
-                    <p class="error">* 写真などは「.png」または「.jpg」の画像を指定してください</p>
+                    <?php if(isset($error['image']) && $error['image'] === 'type'): ?>
+                        <p class="error">* 写真などは「.png」または「.jpg」の画像を指定してください</p>
+                    <?php endif; ?>
                     <p class="error">* 恐れ入りますが、画像を改めて指定してください</p>
                 </dd>
             </dl>
