@@ -54,8 +54,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['form'] = $form;
 
         // 画像のアップロード
-        $filename = date('YmdHis') . '_' .  $image['name'];
-        move_uploaded_file($image['tmp_name'], '../member_picture/' . $filename);
+        if($image['name'] !== '') {
+            $filename = date('YmdHis') . '_' .  $image['name'];
+            if(!move_uploaded_file($image['tmp_name'], '../member_picture/' . $filename)) {
+                die('ファイルのアップロードに失敗しました。');
+            }
+
+            $_SESSION['form']['image'] = $filename;
+            
+        } else {
+            $_SESSION['form']['image'] = '';
+
+        }
 
         header('Location: check.php');
         exit();
