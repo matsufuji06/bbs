@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// 関数を定義したlibrary.phpを読み込み
+require('../library.php');
+
 $form = [
     'name' => '',
     'email' => '',
@@ -8,11 +11,6 @@ $form = [
     
 ];
 $error = [];
-
-// htmlspecialcharsを短くする
-function h($value) {
-    return htmlspecialchars($value, ENT_QUOTES);
-}
 
 // フォームのテキストの内容をチェック
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

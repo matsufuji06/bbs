@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// 関数を定義したlibrary.phpを読み込み
+require('../library.php');
+
+$form = $_SESSION['form'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -21,16 +31,16 @@
 			<form action="" method="post">
 				<dl>
 					<dt>ニックネーム</dt>
-					<dd>○○</dd>
+					<dd><?php echo h($form['name']); ?></dd>
 					<dt>メールアドレス</dt>
-					<dd>info@example.com</dd>
+					<dd><?php echo h($form['email']); ?></dd>
 					<dt>パスワード</dt>
 					<dd>
 						【表示されません】
 					</dd>
 					<dt>写真など</dt>
 					<dd>
-							<img src="../member_picture/" width="100" alt="" />
+							<img src="../member_picture/<?php echo h($form['image']); ?>" width="100" alt="" />
 					</dd>
 				</dl>
 				<div><a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a> | <input type="submit" value="登録する" /></div>
