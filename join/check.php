@@ -10,6 +10,12 @@ if(isset($_SESSION['form'])) {
 	exit();
 }
 
+if($_SESSION['REQUEST_METHOD'] === 'POST') {
+	$db = new mysqli('localhost', 'root', 'root', 'mini_bbs');
+	if(!$db) {
+		die($db->error);
+	}
+}
 ?>
 
 <!DOCTYPE html>
