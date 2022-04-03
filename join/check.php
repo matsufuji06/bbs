@@ -10,9 +10,19 @@ if(isset($_SESSION['form'])) {
 	exit();
 }
 
-if($_SESSION['REQUEST_METHOD'] === 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$db = new mysqli('localhost', 'root', 'root', 'mini_bbs');
 	if(!$db) {
+		die($db->error);
+	}
+
+	$stmt = $db->prepare('insert into members(name, email, password, picture) VALUES(?, ?, ?, ?)');
+	if(!$stmt) {
+		die($db->error);
+	}
+	$stmt->bind_param('ssss', $form['name'], $form['email'], $form['password'], $form['image'],);
+	$success = $stmt->execute();
+	if(!$success) {
 		die($db->error);
 	}
 }
