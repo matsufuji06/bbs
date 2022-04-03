@@ -3,8 +3,12 @@ session_start();
 
 // 関数を定義したlibrary.phpを読み込み
 require('../library.php');
-
-$form = $_SESSION['form'];
+if(isset($_SESSION['form'])) {
+	$form = $_SESSION['form'];
+} else {
+	header('Location: index.php');
+	exit();
+}
 
 ?>
 
