@@ -26,6 +26,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if(!$success) {
 		die($db->error);
 	}
+
+	// セッションでのこれまでのフォーム情報を削除
+	unset($_SESSION['form']);
+	header('Location: thanks.php');
 }
 ?>
 
