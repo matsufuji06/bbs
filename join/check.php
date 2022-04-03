@@ -20,7 +20,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if(!$stmt) {
 		die($db->error);
 	}
-	$stmt->bind_param('ssss', $form['name'], $form['email'], $form['password'], $form['image'],);
+	$password = password_hash($form['password'], PASSWORD_DEFAULT);
+	$stmt->bind_param('ssss', $form['name'], $form['email'], $password, $form['image']);
 	$success = $stmt->execute();
 	if(!$success) {
 		die($db->error);
