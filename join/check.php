@@ -3,6 +3,7 @@ session_start();
 
 // 関数を定義したlibrary.phpを読み込み
 require('../library.php');
+
 if(isset($_SESSION['form'])) {
 	$form = $_SESSION['form'];
 } else {
@@ -11,11 +12,8 @@ if(isset($_SESSION['form'])) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$db = new mysqli('localhost', 'root', 'root', 'mini_bbs');
-	if(!$db) {
-		die($db->error);
-	}
 
+	$db = dbconnect();
 	$stmt = $db->prepare('insert into members(name, email, password, picture) VALUES(?, ?, ?, ?)');
 	if(!$stmt) {
 		die($db->error);
