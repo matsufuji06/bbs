@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require('library.php');
 
 // 初期化
@@ -33,6 +35,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if(password_verify($password, $hash)) {
             // ログイン成功
+            session_regenerate_id();
+            $_SESSION['id'] = $id;
+            $_SESSION['name'] = $name;
+            header('Location: index.php');
+            exit();
+
         } else {
             // ログイン失敗
             $error['login'] = 'failed';
