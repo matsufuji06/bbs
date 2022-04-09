@@ -4,12 +4,19 @@ session_start();
 // 関数を定義したlibrary.phpを読み込み
 require('../library.php');
 
-$form = [
-    'name' => '',
-    'email' => '',
-    'password' => ''
-    
-];
+// check.phpの書き直しから
+if (isset($_GET['action']) && $_GET['action'] === 'rewrite' && isset($_SESSION['form'])) {
+    $form = $_SESSION['form'];
+} else {
+    // 新規登録
+    $form = [
+        'name' => '',
+        'email' => '',
+        'password' => ''
+        
+    ];
+
+}
 $error = [];
 
 // フォームのテキストの内容をチェック
