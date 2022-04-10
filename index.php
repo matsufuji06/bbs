@@ -1,3 +1,16 @@
+<?php
+session_start();
+require('library.php');
+if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
+    $name = $_SESSION['name'];
+} else {
+    header('Location: login.php');
+    exit();
+}
+// $name = $_SESSION['name'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -19,7 +32,7 @@
         <div style="text-align: right"><a href="logout.php">ログアウト</a></div>
         <form action="" method="post">
             <dl>
-                <dt>○○さん、メッセージをどうぞ</dt>
+                <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
                 <dd>
                     <textarea name="message" cols="50" rows="5"></textarea>
                 </dd>
