@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // ログインチェック
         $db = dbconnect();
-        $stmt = $db->prepare('select id, name, password from members where email =? limit 1');
+        $stmt = $db->prepare('select id, name, password from members where email=? limit 1');
         if(!$stmt) {
             die($db->error);
 
@@ -33,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_result($id, $name, $hash);
         $stmt->fetch();
 
+        // ハッシュ化されたパスワードと入力したパスワードが同じか確かめるファンクション
         if(password_verify($password, $hash)) {
             // ログイン成功
             session_regenerate_id();
