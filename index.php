@@ -87,7 +87,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="member_picture/<?php echo h($picture); ?>" width="48" height="48" alt=""/>
             <?php endif; ?>
             <p><?php echo h($message); ?><span class="name">（by <?php echo h($name); ?>さん）</span></p>
-            <p class="day"><a href="view.php?id="><?php echo h($created); ?></a>
+            <p class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created); ?></a>
                 [<a href="delete.php?id=" style="color: #F33;">削除</a>]
             </p>
         </div>
