@@ -63,7 +63,7 @@ $db = dbconnect();
                 [<a href="delete.php?id=" style="color: #F33;">削除</a>]
             </p>
         </div>
-        <?php else; ?>
+        <?php else: ?>
         <p>その投稿は削除されたか、URLが間違えています</p>
         <?php endif; ?>
     </div>
