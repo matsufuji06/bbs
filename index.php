@@ -88,7 +88,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             <p><?php echo h($message); ?><span class="name">（by <?php echo h($name); ?>さん）</span></p>
             <p class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created); ?></a>
+            <?php if($_SESSION['id'] === $member_id): ?>
                 [<a href="delete.php?id=" style="color: #F33;">削除</a>]
+            <?php endif; ?>
             </p>
         </div>
         <?php endwhile; ?>
